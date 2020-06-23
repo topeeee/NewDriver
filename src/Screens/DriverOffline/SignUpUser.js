@@ -16,10 +16,10 @@ const PassengerPickupModal = ({
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [homeLocation, setHomeLocation] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phone, setPhone] = useState('');
   // const [pin, setPin] = useState('');
   const [passengerPin, setPassengerPin] = useState('');
-  const [email, setEmail] = useState('');
+  const [email] = useState('not available');
   const [mode] = useState('not available');
   const [dateOfBirth] = useState('not available');
   const [status] = useState(1);
@@ -29,13 +29,9 @@ const PassengerPickupModal = ({
   const [dropOff, setDropOff] = useState('');
   const [bookingResponse, setBookingResponse] = useState('');
 
-  useEffect(() => {
-    if (phoneNumber) {
-      setEmail(phoneNumber + '@gmail.com');
-    }
-  }, [phoneNumber]);
 
   async function getUserPin() {
+    const phoneNumber = '+234' + phone.substr(1);
     try {
       const res = await axios.post(`${api.login}/admin/users/`, {
         username: phoneNumber,
@@ -48,6 +44,7 @@ const PassengerPickupModal = ({
   }
 
   async function registerUser(pin) {
+    const phoneNumber = '+234' + phone.substr(1);
     const body = {
       firstName,
       lastName,
@@ -96,7 +93,7 @@ const PassengerPickupModal = ({
       setLastName('');
       setHomeLocation('');
       setDropOff('');
-      setPhoneNumber('');
+      setPhone('');
       setTimeout(() => {
         setBookingResponse('');
       }, 5000);
@@ -163,8 +160,8 @@ const PassengerPickupModal = ({
               />
               <Input
                 label={'Phone Number'}
-                value={phoneNumber}
-                onChangeText={setPhoneNumber}
+                value={phone}
+                onChangeText={setPhone}
               />
               <Input
                 label={'Address'}

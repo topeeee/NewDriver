@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Image} from 'react-native';
 import {Text, Button} from '../../Components';
 import {
@@ -9,7 +9,27 @@ import {
   arrow_left,
 } from '../../images';
 
-const ReciptsModal = ({dismiss}) => {
+const ReciptsModal = ({dismiss, dropId, tripRec}) => {
+  const [trip, setTrip] = useState('');
+
+  // useEffect(() => {
+  //   if (tripRec) {
+  //     setTrips(tripRec);
+  //   }
+  // }, [tripRec]);
+  //
+  // console.log(tripRec)
+
+  useEffect(() => {
+    if (dropId) {
+      setTrip(dropId);
+    }
+  }, [dropId]);
+
+  function home() {
+    dismiss();
+    setTrip('');
+  }
   const renderPickUpByPassenger = () => {
     return (
       <View
@@ -54,11 +74,20 @@ const ReciptsModal = ({dismiss}) => {
         }}>
         {renderPickUpByPassenger()}
         <View style={{alignItems: 'center'}}>
-          <Text style={{fontSize: 12, marginVertical: 20}}>Trip ID : 0001</Text>
-          <Text style={{fontSize: 24, marginVertical: 20}}>₦240.00</Text>
+          {/*{trips.map((trip) => (*/}
+          {/*  <Text style={{fontSize: 12, marginVertical: 20}}>*/}
+          {/*    Trip ID : {trip.id}*/}
+          {/*  </Text>*/}
+          {/*))}*/}
+          {trip ? (
+            <Text style={{fontSize: 12, marginVertical: 20}}>
+              Trip ID : {trip}
+            </Text>
+          ) : null}
+          {/*<Text style={{fontSize: 24, marginVertical: 20}}>₦240.00</Text>*/}
           <Image source={circle_check} />
           <Text style={{fontSize: 18, textAlign: 'center', marginVertical: 20}}>
-            Trip 0001 Has Been Successfully Dropped Off{' '}
+            Trip Has Been Successfully Dropped Off{' '}
           </Text>
           <View
             style={{
@@ -68,19 +97,19 @@ const ReciptsModal = ({dismiss}) => {
               borderRadius: 6,
               marginVertical: 5,
             }}>
-            <Text
-              onPress={dismiss}
-              style={{
-                color: '#fff',
-                fontSize: 12,
-                fontWeight: 'bold',
-                textAlign: 'center',
-              }}>
-              Drop more Passengers
-            </Text>
+            {/*<Text*/}
+            {/*  onPress={dismiss}*/}
+            {/*  style={{*/}
+            {/*    color: '#fff',*/}
+            {/*    fontSize: 12,*/}
+            {/*    fontWeight: 'bold',*/}
+            {/*    textAlign: 'center',*/}
+            {/*  }}>*/}
+            {/*  /!*Drop more Passengers*!/*/}
+            {/*</Text>*/}
           </View>
           <Text
-            onPress={dismiss}
+            onPress={home}
             style={{
               textAlign: 'center',
               fontSize: 14,

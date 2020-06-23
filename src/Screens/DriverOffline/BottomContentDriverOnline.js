@@ -40,8 +40,10 @@ const OnlineBottomContent = ({driverEmail}) => {
   const [pickup, setPickup] = useState('');
   const [drop, setDrop] = useState('');
   const [trips, setTrips] = useState([]);
-    const [tripsLength, setTripsLength] = useState('');
+  const [tripsLength, setTripsLength] = useState('');
   const [selected, setSelected] = useState('');
+  const [dropId, setDropId] = useState('');
+  const [tripRec, setTripRec] = useState([]);
 
   async function getDriverEmail() {
     try {
@@ -141,6 +143,7 @@ const OnlineBottomContent = ({driverEmail}) => {
         isDropped();
         setTripsLength(tripsLength - 1);
         setIsShowReciptsModal(true);
+        setDropId(tripId);
         setTimeout(() => {
           setIsShowReciptsModal(false);
         }, 3000);
@@ -178,6 +181,7 @@ const OnlineBottomContent = ({driverEmail}) => {
           user.pickStatus == 1 && user.dropStatus == 0 && user.dropOff === drop,
       );
       setTripsLength(filtered.length);
+      setTripRec(filtered);
     }
 },[trips, drop]);
 
@@ -457,7 +461,7 @@ const OnlineBottomContent = ({driverEmail}) => {
         animationType="slide"
         transparent={true}
         visible={isShowReciptsModal}>
-        <ReciptsModal dismiss={backToHome} />
+        <ReciptsModal dismiss={backToHome} trips={trips} drop={drop} dropId={dropId} tripRec={tripRec} />
       </Modal>
     );
   };

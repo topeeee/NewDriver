@@ -7,7 +7,9 @@ import {
   ScrollView,
   Switch,
   TouchableHighlightBase,
+  AsyncStorage,
 } from 'react-native';
+import axios from 'axios';
 import {
   offline_moon,
   menu,
@@ -23,6 +25,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import BottomContentDriverOffline from './BottomContentDriverOffline';
 import BottomContentDriverOnline from './BottomContentDriverOnline';
 import {Popup} from '../';
+import api from '../../environments/environment';
 
 const Home = () => {
   const DriverOfflineBottomSheetRef = useRef();
@@ -32,6 +35,48 @@ const Home = () => {
   const [isLocationPermissionShow, setIsLocationPermissionShow] = useState(
     true,
   );
+  const [driverId, setDriverId] = useState('');
+
+  async function getDriverEmail() {
+    try {
+      let userData = await AsyncStorage.getItem('driverEmail');
+      let data = JSON.parse(userData);
+      await searchDriver(data);
+    } catch (error) {
+      console.log('Something went wrong', error);
+    }
+  }
+
+  async function searchDriver(id) {
+    try {
+      const res = await axios.get(`${api.driver}/api/email/?email=${id}`);
+      setDriverId(res.data.id);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async function appStatus(id, status) {
+    try {
+      await axios.put(`http://165.22.116.11:7042/api/appstatus/${id}/?appstatus=${status}`)
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    getDriverEmail();
+  }, []);
+
+  useEffect(() => {
+    if (isDriverOnline && driverId) {
+      appStatus(driverId, 1);
+    }
+    if (!isDriverOnline && driverId) {
+      appStatus(driverId, 0);
+    }
+  }, [driverId, isDriverOnline]);
+
   useEffect(() => {
     if (!isLocationPermissionShow) {
       if (!isDriverOnline) {
@@ -53,9 +98,9 @@ const Home = () => {
             <Image source={mobile_icon} />
             <Text>2</Text>
           </View>
-          <View style={styles.currancyLogoContainer}>
-            <Image source={curruncy_logo} />
-          </View>
+          {/*<View style={styles.currancyLogoContainer}>*/}
+          {/*  <Image source={curruncy_logo} />*/}
+          {/*</View>*/}
         </View>
         <View>
           <Switches
@@ -185,9 +230,9 @@ const Home = () => {
         colors={['rgba(255,255,255,0.7)', 'rgba(255,255,255,0.5)']}
         style={{borderWidth: 0, position: 'absolute', width: '100%'}}>
         {renderHeader()}
-        <Text style={{textAlign: 'center', marginVertical: 10, color: '#000'}}>
-          Offline Booking
-        </Text>
+        {/*<Text style={{textAlign: 'center', marginVertical: 10, color: '#000'}}>*/}
+        {/*  Offline Booking*/}
+        {/*</Text>*/}
         {renderOfflineBanner()}
       </LinearGradient>
       {renderLocationPermissionModal()}
