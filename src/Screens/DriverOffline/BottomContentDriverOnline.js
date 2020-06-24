@@ -212,7 +212,7 @@ const OnlineBottomContent = ({driverEmail}) => {
     setIsShowSetPassenger(false);
   }
 
-  // console.log(driverPin, 'rrrrrrrr')
+  // console.log(busStop[0].busstop, 'rrrrrrrr')
 
   const renderBusStopsList = () => {
     return (
@@ -509,10 +509,12 @@ const OnlineBottomContent = ({driverEmail}) => {
             alignItems: 'center',
           }}>
           <Image source={green_circle} />
-          <Text style={{fontSize: 14, marginHorizontal: 5}}>
-            Current Bus Stop : Sandfilled
-          </Text>
-          <View
+          {drop ? <Text style={{fontSize: 14, marginHorizontal: 5}}>
+              Current Bus Stop : {drop}
+            </Text> : null}
+          {busStop.length > 0 && !drop ? <Text style={{fontSize: 14, marginHorizontal: 5}}>
+            Current Bus Stop : {busStop[0].busstop}</Text>: null}
+            <View
             style={{
               backgroundColor: '#679C4C',
               paddingHorizontal: 10,

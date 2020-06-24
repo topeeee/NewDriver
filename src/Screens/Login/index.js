@@ -32,6 +32,7 @@ const Login = ({
 }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   async function Login() {
     const body = {username, password};
@@ -44,7 +45,10 @@ const Login = ({
         navigation.navigate('Home');
       }
     } catch (e) {
-      console.log(e);
+      setErrorMsg('Incorrect Email or Password');
+      setTimeout(() => {
+        setErrorMsg('');
+      }, 5000);
     }
   }
 
@@ -79,6 +83,7 @@ const Login = ({
           heading={'Get the Zeno experience'}
         />
       </View>
+      <Text style={{marginHorizontal: 25, color: 'red'}}>{errorMsg}</Text>
       <View style={{marginHorizontal: 25}}>
         <Input
           label={'Email Address'}
