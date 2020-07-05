@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import {View, ScrollView, StyleSheet, Picker, FlatList} from 'react-native';
+import {View, ScrollView, StyleSheet, Picker, FlatList, AsyncStorage} from 'react-native';
 import {Text, Button, Input} from '../../Components';
 import api from '../../environments/environment';
 
@@ -28,6 +28,8 @@ const PassengerPickupModal = ({
   const [cost] = useState(200);
   const [dropOff, setDropOff] = useState('');
   const [bookingResponse, setBookingResponse] = useState('');
+  const [operatorId, setOperatorId] = useState('');
+
 
 
   async function getUserPin() {
@@ -70,6 +72,7 @@ const PassengerPickupModal = ({
       mode,
       pickUp,
       driverPin,
+      operatorId,
       route,
       distance,
       cost,
@@ -78,6 +81,7 @@ const PassengerPickupModal = ({
     try {
       const res = await axios.post(`${api.trip}/api/me/trips/`, body1);
       await pickUser(res.data.id);
+      console.log(res.data)
     } catch (e) {
       console.log(e);
     }
@@ -105,13 +109,26 @@ const PassengerPickupModal = ({
     }
   }
 
+  async function getOperatorId() {
+    let driverData = await AsyncStorage.getItem('driverEmail');
+    let driverEmail = JSON.parse(driverData);
+    try {
+      const res = await axios.get(`http://165.22.116.11:7042/api/email/?email=${driverEmail}`);
+      setOperatorId(res.data.operatorid);
+    } catch (e) {}
+  }
+
   useEffect(() => {
     if (passengerPin) {
       setTrip();
     }
   }, [passengerPin]);
 
-
+  useEffect(() => {
+    if (!operatorId) {
+      getOperatorId();
+  }
+},[operatorId]);
 
 
   return (

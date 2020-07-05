@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, Picker, StyleSheet} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Picker, StyleSheet, AsyncStorage} from 'react-native';
 import {Text, Button, Input} from '../../Components';
 import axios from 'axios';
 import api from '../../environments/environment';
@@ -26,6 +26,7 @@ const SetPassengerModal = ({
   const [mode] = useState('not available');
   const [pinValidation, setPinValidation] = useState('');
   const [dropOffValidation, setDropOffValidation] = useState('');
+  const [operatorId, setOperatorId] = useState('');
 
   async function verifyPin() {
     try {
@@ -45,6 +46,7 @@ const SetPassengerModal = ({
       mode,
       pickUp,
       driverPin,
+      operatorId,
       route,
       distance,
       cost,
@@ -79,6 +81,15 @@ const SetPassengerModal = ({
     }
   }
 
+  async function getOperatorId() {
+    let driverData = await AsyncStorage.getItem('driverEmail');
+    let driverEmail = JSON.parse(driverData);
+    try {
+      const res = await axios.get(`http://165.22.116.11:7042/api/email/?email=${driverEmail}`);
+      setOperatorId(res.data.operatorid);
+    } catch (e) {}
+  }
+
   function register() {
     if (!pin) {
       setPinValidation('Enter Pin');
@@ -97,6 +108,12 @@ const SetPassengerModal = ({
       verifyPin();
     }
   }
+
+  useEffect(() => {
+    if (!operatorId) {
+      getOperatorId();
+    }
+  },[operatorId]);
 
   return (
     <View style={{flex: 1}}>

@@ -75,7 +75,9 @@ const OnlineBottomContent = ({driverEmail}) => {
 
   async function getDriverVehicle(id) {
     try {
-      const res = await axios.get(`${api.driverVehicle}/api/vehicle/?driverId=${id}`);
+      const res = await axios.get(
+        `${api.driverVehicle}/api/vehicle/?driverId=${id}`,
+      );
       res.data.map((data) => {
         setVehicleId(data.vehicleId);
       });
@@ -95,7 +97,9 @@ const OnlineBottomContent = ({driverEmail}) => {
 
   async function getBusStop(route) {
     try {
-      const res = await axios.get(`${api.busStop}/api/routecode/?search=${route}`);
+      const res = await axios.get(
+        `${api.busStop}/api/routecode/?search=${route}`,
+      );
       const newBusStop = res.data.map((v) => ({...v, pickNumber: 0}));
       setBusStop(newBusStop);
     } catch (e) {
@@ -128,7 +132,9 @@ const OnlineBottomContent = ({driverEmail}) => {
 
   async function getTrips() {
     try {
-      const res = await axios.get(`${api.trip}/api/trips/?search=${driverRoute}`);
+      const res = await axios.get(
+        `${api.trip}/api/trips/?search=${driverRoute}`,
+      );
       setTrips(res.data);
     } catch (e) {
       console.log(e);
@@ -137,7 +143,9 @@ const OnlineBottomContent = ({driverEmail}) => {
 
   async function isDrop(tripId) {
     try {
-      const res = await axios.put(`${api.trip}/api/drop/${tripId}/?status=1&driverPin=${driverPin}`);
+      const res = await axios.put(
+        `${api.trip}/api/drop/${tripId}/?status=1&driverPin=${driverPin}`,
+      );
       if (res.data) {
         getTrips();
         isDropped();
@@ -155,7 +163,9 @@ const OnlineBottomContent = ({driverEmail}) => {
 
   async function isDropAll() {
     try {
-      const res = await axios.post(`${api.trip}/api/dropall/?dropOff=${drop}&driverPin=${driverPin}&pickedStatus=1&dropStatus=1`);
+      const res = await axios.post(
+        `${api.trip}/api/dropall/?dropOff=${drop}&driverPin=${driverPin}&pickedStatus=1&dropStatus=1`,
+      );
       if (res) {
         getTrips();
         isDroppedAll(tripsLength);
@@ -183,7 +193,7 @@ const OnlineBottomContent = ({driverEmail}) => {
       setTripsLength(filtered.length);
       setTripRec(filtered);
     }
-},[trips, drop]);
+  }, [trips, drop]);
 
   useEffect(() => {
     formatAMPM(new Date());
@@ -290,10 +300,10 @@ const OnlineBottomContent = ({driverEmail}) => {
               (user) =>
                 user.pickStatus == 1 &&
                 user.dropStatus == 0 &&
-                user.dropOff === drop,
+                user.dropOff === drop &&
+                user.username === isEmail,
             )
             .map((trip) => (
-
               <View
                 style={{
                   height: 80,
@@ -379,7 +389,11 @@ const OnlineBottomContent = ({driverEmail}) => {
             ))}
 
         <View style={{width: '50%', alignSelf: 'center', marginVertical: 10}}>
-          <Button onPress={() => isDropAll()} text={'Drop All'} style={{backgroundColor: 'green'}}/>
+          <Button
+            onPress={() => isDropAll()}
+            text={'Drop All'}
+            style={{backgroundColor: 'green'}}
+          />
           <Button onPress={() => backToHome()} text={'Home'} />
         </View>
       </View>
@@ -415,7 +429,13 @@ const OnlineBottomContent = ({driverEmail}) => {
         transparent={true}
         visible={isShowPassengerModal}>
         {isShowSelectPassenger && (
-          <SelectPassenger showSetPassengerModal={showSetPassengerModal} setIsShowSelectPassenger={setIsShowSelectPassenger} setIsShowPassengerModal={setIsShowPassengerModal} selected={selected} setSelected={setSelected}  />
+          <SelectPassenger
+            showSetPassengerModal={showSetPassengerModal}
+            setIsShowSelectPassenger={setIsShowSelectPassenger}
+            setIsShowPassengerModal={setIsShowPassengerModal}
+            selected={selected}
+            setSelected={setSelected}
+          />
         )}
         {isShowSetPassenger && (
           <SetPassengerModal
@@ -461,7 +481,13 @@ const OnlineBottomContent = ({driverEmail}) => {
         animationType="slide"
         transparent={true}
         visible={isShowReciptsModal}>
-        <ReciptsModal dismiss={backToHome} trips={trips} drop={drop} dropId={dropId} tripRec={tripRec} />
+        <ReciptsModal
+          dismiss={backToHome}
+          trips={trips}
+          drop={drop}
+          dropId={dropId}
+          tripRec={tripRec}
+        />
       </Modal>
     );
   };
@@ -509,12 +535,17 @@ const OnlineBottomContent = ({driverEmail}) => {
             alignItems: 'center',
           }}>
           <Image source={green_circle} />
-          {drop ? <Text style={{fontSize: 14, marginHorizontal: 5}}>
+          {drop ? (
+            <Text style={{fontSize: 14, marginHorizontal: 5}}>
               Current Bus Stop : {drop}
-            </Text> : null}
-          {busStop.length > 0 && !drop ? <Text style={{fontSize: 14, marginHorizontal: 5}}>
-            Current Bus Stop : {busStop[0].busstop}</Text>: null}
-            <View
+            </Text>
+          ) : null}
+          {busStop.length > 0 && !drop ? (
+            <Text style={{fontSize: 14, marginHorizontal: 5}}>
+              Current Bus Stop : {busStop[0].busstop}
+            </Text>
+          ) : null}
+          <View
             style={{
               backgroundColor: '#679C4C',
               paddingHorizontal: 10,
