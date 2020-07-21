@@ -1,9 +1,10 @@
 import React from 'react';
 import {View, Image} from 'react-native';
-import {Text, Button} from '../../Components';
-import {bus, my_location, green_circle, arrow_left} from '../../images';
+import Text from '../Components/Text';
+import Button from '../Components/Button/Button';
+import {bus, my_location, green_circle, arrow_left} from '../images';
 
-const OnlineBottomContent = () => {
+const DropOffPassenger = () => {
   const renderPickUpDetails = () => {
     return (
       <View style={{flex: 1}}>
@@ -167,4 +168,4 @@ const OnlineBottomContent = () => {
     </View>
   );
 };
-export default OnlineBottomContent;
+export default DropOffPassenger;

@@ -1,35 +1,15 @@
-import React, {useState, useEffect} from 'react';
-import {connect} from 'react-redux';
-import {
-  View,
-  StyleSheet,
-  Image,
-  Dimensions,
-  ScrollView,
-  AsyncStorage,
-} from 'react-native';
-import {LogIn, getToken} from '../../store/actions/authenticationAction';
-import {welcome_banner} from '../../images';
-import {Text} from '../../Components';
-import {
-  SimpleHeader,
-  LargeHeader,
-  Button,
-  Input,
-  GoogleLoginButton,
-  FacebookLoginButton,
-} from '../../Components';
-import axios from 'axios';
-import api from '../../environments/environment';
+import React, {useState} from 'react';
+import {View, StyleSheet, ScrollView, AsyncStorage} from 'react-native';
+import Text from '../Components/Text';
+import SimpleHeader from '../Components/Headers/SimpleHeader';
+import LargeHeader from '../Components/Headers/LargeHeader';
+import Button from '../Components/Button/Button';
+import Input from '../Components/Input';
 
-const Login = ({
-  navigation,
-  isAuthenticated,
-  errors,
-  loginResponse,
-  isLogIn,
-  driverEmail,
-}) => {
+import axios from 'axios';
+import api from '../environments/environment';
+
+const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -134,19 +114,8 @@ const Login = ({
   );
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    isLogIn: (username, password) => dispatch(LogIn(username, password)),
-  };
-}
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  loginResponse: state.auth.loginResponse,
-  driverEmail: state.auth.driverEmail,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;
 
 const styles = StyleSheet.create({
   container: {

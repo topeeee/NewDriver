@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
-import { Text } from '..'
-import { google_logo } from '../../images'
+import Text from '../Text';
+import { google_logo } from '../../images';
 const GoogleLoginButton = ({ style }) => {
 
     return (

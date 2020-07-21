@@ -1,8 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, Image, Dimensions, ScrollView } from 'react-native'
-import { forget_password } from "../../images";
-import { Text } from '../../Components';
-import { SimpleHeader, LargeHeader, Button, Input, GoogleLoginButton, FacebookLoginButton } from '../../Components'
+import { View, StyleSheet} from 'react-native';
+import { forget_password } from '../images/index';
+import Text from '../Components/Text';
+import SimpleHeader from '../Components/Headers/SimpleHeader';
+import LargeHeader from '../Components/Headers/LargeHeader';
+import Button from '../Components/Button/Button';
+import Input from '../Components/Input';
 
 
 const ForgetPassword = () => {
@@ -27,6 +30,6 @@ const styles = StyleSheet.create({
         flex: 1,
         // paddingHorizontal: 25,
         backgroundColor: '#fff',
-        alignItems: 'center'
+        alignItems: 'center',
     }
 })

@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import {View, ScrollView, StyleSheet, Picker, FlatList, AsyncStorage} from 'react-native';
-import {Text, Button, Input} from '../../Components';
-import api from '../../environments/environment';
+import {View, ScrollView, StyleSheet, Picker, AsyncStorage} from 'react-native';
+import Text from '../Components/Text';
+import Button from '../Components/Button/Button';
+import Input from '../Components/Input';
+import api from '../environments/environment';
 
 const PassengerPickupModal = ({
-  dismiss,
   hideSignUpUser,
   pickUp,
   driverPin,

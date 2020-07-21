@@ -1,13 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Image} from 'react-native';
-import {Text, Button} from '../../Components';
-import {
-  bus,
-  my_location,
-  green_circle,
-  circle_check,
-  arrow_left,
-} from '../../images';
+import Text from '../Components/Text';
+import {circle_check, arrow_left} from '../images';
 
 const ReciptsModal = ({dismiss, dropId, tripRec}) => {
   const [trip, setTrip] = useState('');

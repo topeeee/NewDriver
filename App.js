@@ -1,16 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import {Provider} from 'react-redux';
+import React from 'react';
 import axios from 'axios';
-import store from './src/store';
-import {AsyncStorage, SafeAreaView, StyleSheet, View} from 'react-native';
-import {
-  Splash,
-  Welcome,
-  Login,
-  ForgetPassword,
-  SignUp,
-  Home,
-} from './src/Screens';
+import {AsyncStorage} from 'react-native';
+import Splash from './src/Screens/Splash';
+import Welcome from './src/Screens/Welcome';
+import Login from './src/Screens/Login';
+import ForgetPassword from './src/Screens/ForgetPassword';
+import SignUp from './src/Screens/SignUp';
+import Home from './src/Screens/Home';
+
 
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
@@ -43,6 +40,6 @@ const App = () => {
   );
 };
 
-const styles = StyleSheet.create({});
+
 
 export default App;

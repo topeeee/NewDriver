@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import {View, TextInput, Modal, Image, Picker, StyleSheet} from 'react-native';
-import {Text, Button, Input} from '../../Components';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import {popup_banner} from '../../images';
+import React from 'react';
+import {View, Picker, StyleSheet} from 'react-native';
+import Text from '../Components/Text';
+import Button from '../Components/Button/Button';
+
 
 const SelectPassenger = ({
   showSetPassengerModal,

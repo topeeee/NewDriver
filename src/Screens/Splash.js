@@ -1,8 +1,7 @@
-import React, {useEffect} from 'react';
-import axios from 'axios';
+import React from 'react';
 import {View, StyleSheet, Image, Dimensions, AsyncStorage} from 'react-native';
-import {logo, splash_bottom_banner} from '../../images';
-import {Text} from '../../Components';
+import {logo, splash_bottom_banner} from '../images';
+import Text from '../Components/Text';
 
 const {width} = Dimensions.get('window');
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
-import { Text } from '..'
+import Text from '../Text';
 import { facebook_logo } from '../../images';
 
 const FacebookLoginButton = ({ style }) => {

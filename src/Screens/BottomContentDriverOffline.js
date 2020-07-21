@@ -1,14 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {View, Image, StyleSheet, AsyncStorage} from 'react-native';
-import {Text} from '../../Components';
-import {offline_moon_black} from '../../images';
-import {connect} from 'react-redux';
-import {getDrivers} from '../../store/actions/driverAction';
+import Text from '../Components/Text';
+import {offline_moon_black} from '../images';
 import axios from 'axios';
-import api from '../../environments/environment';
+import api from '../environments/environment';
 
-const BottomContentDriverOffline = ({driverEmail, isDriver, drivers}) => {
-  const [driver, setDriver] = useState([]);
+const BottomContentDriverOffline = () => {
   const [driverDetails, setDriverDetails] = useState('');
   const [isEmail, setIsEmail] = useState('');
   const [greeting, setGreeting] = useState('');
@@ -41,7 +38,6 @@ const BottomContentDriverOffline = ({driverEmail, isDriver, drivers}) => {
 
   function formatAMPM(date) {
     let hours = date.getHours();
-    let minutes = date.getMinutes();
     let ampm = hours >= 12 ? 'Evening' : 'Morning';
     let strTime = ampm;
     setGreeting(strTime);
@@ -90,18 +86,6 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    isDriver: () => dispatch(getDrivers),
-  };
-}
 
-const mapStateToProps = (state) => ({
-  driverEmail: state.auth.driverEmail,
-  drivers: state.driver.drivers,
-});
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(BottomContentDriverOffline);
+export default BottomContentDriverOffline;

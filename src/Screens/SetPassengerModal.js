@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {View, Picker, StyleSheet, AsyncStorage} from 'react-native';
-import {Text, Button, Input} from '../../Components';
+import Text from '../Components/Text';
+import Button from '../Components/Button/Button';
+import Input from '../Components/Input';
 import axios from 'axios';
-import api from '../../environments/environment';
+import api from '../environments/environment';
 
 const SetPassengerModal = ({
   showSignUpUser,

@@ -7,25 +7,24 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {Button, Text} from '../../Components';
-import {green_circle, my_location} from '../../images';
+import Button from '../Components/Button/Button';
+import Text from '../Components/Text';
+import {green_circle, my_location} from '../images';
 import SelectPassenger from './SelectPassenger';
 import SetPassengerModal from './SetPassengerModal';
 import SignUpUser from './SignUpUser';
 import ReciptsModal from './ReciptModal';
 import axios from 'axios';
-import api from '../../environments/environment';
-import {getDrivers} from '../../store/actions/driverAction';
-import {connect} from 'react-redux';
+import api from '../environments/environment';
 
-const OnlineBottomContent = ({driverEmail}) => {
+
+const OnlineBottomContent = () => {
   const [isShowBusStopsList, setIsShowBusStopsList] = useState(true);
   const [isShowSelectPassenger, setIsShowSelectPassenger] = useState(true);
   const [isShowSetPassenger, setIsShowSetPassenger] = useState(false);
   const [isShowPassengerModal, setIsShowPassengerModal] = useState(false);
   const [isShowSignUpUser, setIsShowSignUpUser] = useState(false);
   const [isShowReciptsModal, setIsShowReciptsModal] = useState(false);
-  const [driverVehicle, setDriverVehicle] = useState([]);
   const [driverId, setDriverId] = useState('');
   const [driverPin, setDriverPin] = useState('');
   const [driverRoute, setDriverRoute] = useState('');
@@ -34,7 +33,6 @@ const OnlineBottomContent = ({driverEmail}) => {
   const [vehicleId, setVehicleId] = useState('');
   const [capacity, setCapacity] = useState(null);
   const [greeting, setGreeting] = useState('');
-  const [driver, setDriver] = useState([]);
   const [driverDetails, setDriverDetails] = useState('');
   const [isEmail, setIsEmail] = useState('');
   const [pickup, setPickup] = useState('');
@@ -594,17 +592,5 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    isDriver: () => dispatch(getDrivers),
-  };
-}
 
-const mapStateToProps = (state) => ({
-  driverEmail: state.auth.driverEmail,
-  drivers: state.driver.drivers,
-});
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(OnlineBottomContent);
+export default OnlineBottomContent;
